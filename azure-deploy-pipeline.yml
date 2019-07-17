@@ -10,9 +10,9 @@ variables:
   imageName: 'lucianasregistry.azurecr.io/tweeter-app:latest'
   containerName: 'tweeterapp'
 steps:
-- script: docker login lucianasregistry.azurecr.io -u LucianasRegistry --password-stdin $DOCKER_LOGIN_PASSWORD
+- script: docker login lucianasregistry.azurecr.io -u LucianasRegistry -p $DOCKER_LOGIN_PASSWORD
   env:
-    DOCKER_LOGIN_PASSWORD: $(DOCKER_PASSWORD)
+    DOCKER_LOGIN_PASSWORD: $(ACR_KEY)
   displayName: 'docker login'
 - script: docker build -f Dockerfile -t $(imageName) .
   displayName: 'docker build'
