@@ -10,7 +10,7 @@ variables:
   imageName: 'lucianasregistry.azurecr.io/tweeter-app:latest'
   containerName: 'tweeterapp'
 steps:
-- script: docker login lucianasregistry.azurecr.io -
+- script: docker login lucianasregistry.azurecr.io 
   displayName: 'docker login'
 - script: docker build -f Dockerfile -t $(imageName) .
   displayName: 'docker build'
