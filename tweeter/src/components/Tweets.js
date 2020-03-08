@@ -23,110 +23,97 @@ class Sentiment extends Component {
 
     render() {
         if (this.state.sentiment == null) {
-            return <div > < /div>
+            return <div></div>
         }
-        return ( < div > Sentiment: { this.state.sentiment } < /div>)
+        return (<div> Sentiment: {this.state.sentiment} </div>)
+    }
+}
+
+class Tweets extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            addTweetText: '',
+            tweets: props.tweets,
+            errorMessage: ''
         }
     }
 
-    class Tweets extends Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                addTweetText: '',
-                tweets: props.tweets,
-                errorMessage: ''
-            }
-        }
-
-        // Posts tweet text to /api/tweets and adds the response to the list of tweets
-        async addTweet() {
-            const response = await fetch("api/tweets/", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': Cookies.get('csrftoken')
-                },
-                body: JSON.stringify({
-                    text: this.state.addTweetText
-                })
+    // Posts tweet text to /api/tweets and adds the response to the list of tweets
+    async addTweet() {
+        const response = await fetch("api/tweets/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': Cookies.get('csrftoken')
+            },
+            body: JSON.stringify({
+                text: this.state.addTweetText
             })
-            const data = await response.json()
-            if (!response.ok) {
-                this.setState({ errorMessage: response.statusText })
-                console.log(response)
-                throw Error(response.statusText)
-            }
-            const newTweets = Object.assign([], this.state.tweets);
-            newTweets.unshift(data)
-            this.setState({ tweets: newTweets, addTweetText: '' })
-
+        })
+        const data = await response.json()
+        if (!response.ok) {
+            this.setState({ errorMessage: response.statusText })
+            console.log(response)
+            throw Error(response.statusText)
         }
+        const newTweets = Object.assign([], this.state.tweets);
+        newTweets.unshift(data)
+        this.setState({ tweets: newTweets, addTweetText: '' })
 
-        render() {
-                return ( <
-                        div className = "container" >
-                        <
-                        div className = "tweettext-container" >
-                        <
-                        input onChange = { event => this.setState({ addTweetText: event.target.value }) }
-                        value = { this.state.addTweetText }
-                        onKeyUp = {
+    }
+
+    render() {
+        return (
+            <div className="container">
+                <div className="tweettext-container">
+                    <
+                        input onChange={event => this.setState({ addTweetText: event.target.value })}
+                        value={this.state.addTweetText}
+                        onKeyUp={
                             event => {
                                 if (event.key == "Enter") {
                                     this.addTweet()
                                 }
                             }
                         }
-                        placeholder = "Say something . . ."
-                        type = "text"
-                        className = "tweet" / >
-                        <
-                        button type = "button"
-                        onClick = { this.addTweet.bind(this) } > Tweet < /button> <
-                        /div>
+                        placeholder="Say something . . ."
+                        type="text" className="tweet" />
+                    <button type="button" onClick={this.addTweet.bind(this)}> Tweet </button>
+                </div>
 
-                        <
-                        div className = "Feed" > {
-                            this.state.tweets.length == 0 && < p > Nothing to show < /p>} {
-                                this.state.errorMessage.length != 0 && < div className = "error" > Error!Text is either too short or too long. < /div>} {
-                                        this.state.tweets.map(tweet => ( <
-                                            div key = { tweet.id }
-                                            className = "tweet" >
-                                            <
-                                            div className = "avatar" >
-                                            <
-                                            i className = "fa fa-user fa-4x" > < /i> <
-                                            /div> <
-                                            div className = "bubble-container" >
-                                            <
-                                            div className = "bubble" >
-                                            <
-                                            p className = 'username' > @ { tweet.user } < /p> <
-                                            p className = 'tweettext' > { tweet.text } < /p> <
-                                            Sentiment message = { tweet.text } > < /Sentiment> <
-                                            div className = "over-bubble" >
-                                            <
-                                            div className = 'action-buttons' >
-                                            <
-                                            i className = 'fa fa-reply' > < /i> <
-                                            i className = 'fa fa-retweet' > < /i> <
-                                            i className = 'fa fa-star' > < /i> <
-                                            /div> <
-                                            /div> <
-                                            /div> <
-                                            div className = "arrow" > < /div> <
-                                            /div> <
-                                            /div>
-                                        ))
-                                    } <
-                                    /div> <
-                                    /div>)
-                            }
-                        }
+                <div className="Feed" > {
+                    this.state.tweets.length == 0 && <p> Nothing to show </p>}
+                    {this.state.errorMessage.length != 0 && <div className="error"> Error! Text is either too short or too long. </div>}
+                    {this.state.tweets.map(tweet => (
+                        <div key={tweet.id} className="tweet">
+                            <div className="avatar" >
+                                <i className="fa fa-user fa-4x" > </i>
+                            </div>
+                            <div className="bubble-container" >
+                                <div className="bubble" >
+                                    <p className='username' > @ {tweet.user} </p>
+                                    <p className='tweettext' > {tweet.text} </p>
+                                    <Sentiment message={tweet.text}> </Sentiment>
+                                    <div className="over-bubble" >
+                                        <div className='action-buttons' >
+                                            <i className='fa fa-reply' > </i>
+                                            <i className='fa fa-retweet' > </i>
+                                            <i className='fa fa-star' > </i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="arrow"> </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>)
+    }
+}
 
-                        Tweets.propTypes = {
-                            tweets: PropTypes.array.isRequired
-                        };
+Tweets.propTypes = {
+    tweets: PropTypes.array.isRequired
+};
 
-                        export default Tweets;
+export default Tweets;
