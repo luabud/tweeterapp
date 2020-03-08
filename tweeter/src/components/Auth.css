@@ -1,0 +1,32 @@
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 100%;
+    background-color: #3498db;
+    color: #fff;
+    text-align: left;
+    padding: 10px;
+    border-radius: 6px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+  
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .h2 {
+    padding: 1em 0;
+    color: black;
+    text-align: left;
+    margin-top: 0;
+    font-family: "Lato";
+    font-size: 20px;
+  }
