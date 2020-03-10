@@ -16,7 +16,7 @@ class TweetSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'text', 'timestamp')
 
     def validate_text(self, value):
-        if len(value) < 5:
+        if len(value) < 3:
             raise serializers.ValidationError(
                 'Text is too short.'
             )
