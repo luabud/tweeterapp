@@ -20,8 +20,14 @@
     ```
     python -m pip install -r requirements.txt
     ```
+4. Build the node front end by opening a new terminal with Ctrl-Shift-` , and running:
 
-4. Start the Django server:
+    ```
+    npm install
+    npm run dev
+    ```
+    
+5. Open a new terminal and Start the Django server:
 
     ```
     python manage.py migrate
