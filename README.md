@@ -20,7 +20,7 @@
     ```
     python -m pip install -r requirements.txt
     ```
-4. Build the node front end by opening a new terminal with Ctrl-Shift-` , and running:
+4. Build the node front end by running:
 
     ```
     npm install
