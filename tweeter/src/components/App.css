@@ -1,0 +1,55 @@
+@import-normalize;
+
+.main-body {
+  display: flex;
+  flex-direction: column;
+  background-color: #11171d;
+  min-height: 80rem;
+}
+
+body {
+  display: flex;
+  font-family: 'Helvetica';
+  flex-direction: column; 
+  margin: 0;
+  padding: 0;
+  color:rgb(47, 47, 47);
+  font-size: 14px;
+  background-color: #ffffff; 
+}
+
+#inner-body {
+  margin: 16px
+}
+
+#menubar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+.header {
+  background-color: #3498db;
+  padding: 1em 0;
+  color: white;
+  text-align: center;
+  margin-top: 0;
+  font-family: "Lato";
+  font-size: 1.6em;
+}
+
+.icon-bar {
+  color: blue;
+  margin: 8;
+  display: flex;
+  width: 80px;
+  justify-content: space-between
+}
+
+.icon-bar .fa {
+  color: rgb(0, 120, 212)
+}
+
+.icon-bar .fa:hover {
+  color: rgb(36, 58, 94)
+}
